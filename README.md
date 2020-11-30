@@ -2,9 +2,9 @@
 ## このリポジトリは？  
 - GCP用のTerraform&Slack通知のGithub ActionsのWorkflowサンプルです。
    - push to develop branch  
-     Pushすると`terraform plan` --> Slack通知  
+     developブランチへPushすると`terraform plan` --> Slack通知  
    - merge to main branch  
-     Mergeすると`terraform apply -auto-approve` --> Slack通知  
+     MainブランチへMergeすると`terraform apply -auto-approve` --> Slack通知  
 
 ## 利用前に必要なこと
 ### ..githubディレクトリを.githubディレクトリへリネームして、リポジトリに配置
