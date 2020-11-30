@@ -30,7 +30,7 @@ jobs:
     if: always()
     name: Post Workflow Status To Slack
     needs:
-      - terraform # これを指定しないと、Slack通知が先に来ちゃうよ。
+      - terraform # ここで依存JOBとして先のJOB:terraformを指定しないと、Slack通知が先に来てしまう。
     runs-on: ubuntu-latest
     steps:
       - name: Slack Workflow Notification
