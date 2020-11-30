@@ -1,13 +1,18 @@
-# github-actions-template-terraform
-
-## これは何？  
-- リポジトリにterraformファイルをcommitすると、terraform plan/applyしてSlack通知するWorkflowです。
+# github-actions-sample-template-for-gcp-terraform
+## このリポジトリは？  
+- リポジトリにTerraformファイルをcommitすると、GCPに対してterraform plan/apply後、Slack通知するGithub ActionsのサンプルWorkflowを置いてます。
    - push to develop branch  
      Pushすると`terraform plan` --> Slack通知  
    - merge to main branch  
      Mergeすると`terraform apply -auto-approve` --> Slack通知  
 
-## GitHubのSettings-->Secretsで以下2つ設定が必要です。
+## 利用前に必要なこと
+### ..githubディレクトリのリネームと配置
+```
+cp -a ..github /path_to_your_repo/.github
+```
+
+### GitHubのSettings-->Secretsで以下2つ設定が必要です。
 - GOOGLE_CREDENTIALS
    - ServiceAccount用のキーファイルの中身を貼り付けてください。	
    - cf.
