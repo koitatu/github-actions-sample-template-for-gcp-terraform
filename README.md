@@ -1,6 +1,6 @@
 # github-actions-template-terraform
 
-## これは何？  
+## リポジトリにあるものは？  
 - リポジトリにterraformファイルをcommitすると、terraform plan/applyしてSlack通知するWorkflowです。
    - push to develop branch  
      Pushすると`terraform plan` --> Slack通知  
