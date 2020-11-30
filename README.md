@@ -1,6 +1,6 @@
 # github-actions-sample-template-for-gcp-terraform
 ## このリポジトリは？  
-- リポジトリにTerraformファイルをcommitすると、GCPに対してterraform plan/apply後、Slack通知するGithub ActionsのサンプルWorkflowを置いてます。
+- GCP用のTerraform&Slack通知のGithub ActionsのWorkflowサンプルです。
    - push to develop branch  
      Pushすると`terraform plan` --> Slack通知  
    - merge to main branch  
