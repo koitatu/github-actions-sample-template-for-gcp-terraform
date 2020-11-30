@@ -3,9 +3,9 @@
 ## リポジトリにあるものは？  
 - リポジトリにterraformファイルをcommitすると、terraform plan/applyしてSlack通知するWorkflowです。
    - push to develop branch  
-     Pushすると`terraform plan` --> Slack通知  
+     developブランチへPushすると`terraform plan` --> Slack通知  
    - merge to main branch  
-     Mergeすると`terraform apply -auto-approve` --> Slack通知  
+     MainブランチへMergeすると`terraform apply -auto-approve` --> Slack通知  
 
 ## GitHubのSettings-->Secretsで以下2つ設定が必要です。
 - GOOGLE_CREDENTIALS
