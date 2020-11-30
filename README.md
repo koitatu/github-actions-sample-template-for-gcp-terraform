@@ -7,7 +7,7 @@
      Mergeすると`terraform apply -auto-approve` --> Slack通知  
 
 ## 利用前に必要なこと
-### ..githubディレクトリのリネームと配置
+### ..githubディレクトリを.githubディレクトリへリネームして、リポジトリに配置
 ```
 cp -a ..github /path_to_your_repo/.github
 ```
