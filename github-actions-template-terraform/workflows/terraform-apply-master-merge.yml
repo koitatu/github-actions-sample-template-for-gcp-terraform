@@ -1,0 +1,51 @@
+# mergeの際の処理分岐は無いので、右記を参考に。https://qiita.com/okazy/items/7ab46f2c20ec341a2836
+name: 'Terraform apply master merge'
+on:
+  pull_request:
+    paths-ignore:
+      - '.github/workflows/**' # workflowsの更新時はActionsの発火除外。 https://docs.github.com/ja/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#onpushpull_requestpaths
+    branches:
+      - main
+    types: [closed]
+
+jobs:
+  terraform:
+    name: 'Terraform apply master merge'
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    container: hashicorp/terraform:light
+    env: 
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Get the output time
+      run: echo "Container Test. The time was ${{ steps.hello.outputs.time }}"
+    - name: Check terraform version.
+      run: terraform -v
+    - name: terraform init
+      run: terraform init
+    - name: terraform fmt # -checkをtrueにするとチェックだけを行い、差分が発生するとコマンドの返り値に3を返す。 https://inamuu.com/circleci%E3%81%A7terraform-fmt%E3%82%92%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B/
+      run: terraform fmt 
+    - name: terraform apply -auto-approve
+      run: terraform apply -auto-approve
+  slack-workflow-status:
+    if: always()
+    name: Post Workflow Status To Slack
+    needs:
+      - terraform # これを指定しないと、Slack通知が先に来ちゃうよ。
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack Workflow Notification
+        uses: Gamesight/slack-workflow-status@master
+        with:
+          # Required Input
+          repo_token: ${{secrets.GITHUB_TOKEN}}
+          slack_webhook_url: ${{secrets.SLACK_WEBHOOK_URL}}
+          # Optional Input
+          channel: '#notify-github-personal'
+          name: 'GitHubActionsくん'
+          icon_emoji: ':dog2:'
+          # icon_url: 'https://raw.githubusercontent.com/donnemartin/dev-setup-resources/master/res/aws_lambda.png'
+          #icon_emoji: ':poop:'
+          icon_url: 'https://avatars0.githubusercontent.com/u/1701160?s=96&v=4'
